@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProperties } from "../Store/property/actions";
 import { getPropertiesSelector } from "../Store/property/selectors";
 import { Button } from "antd";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const propertyId = "1YK15JGO";
 
 export const PropertyPage = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const properties = useSelector(getPropertiesSelector);
+  const { propertyId } = useParams();
+
   const property = properties.filter(
     (p: { id: any }) => p["id"] === propertyId
   )[0];
 
-  console.log({ properties, property });
 
   useEffect(() => {
     dispatch(getProperties());

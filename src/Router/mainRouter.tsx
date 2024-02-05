@@ -9,7 +9,7 @@ const MainRouter: React.FC = () => {
       <Navbar/>
       <Routes>
         <Route path='/' element={<PropertiesPage />} />
-        <Route path='/property' element={<PropertyPage />} />
+        <Route path='/property/:propertyId' element={<PropertyPage />} />
       </Routes>
     </BrowserRouter>
   );

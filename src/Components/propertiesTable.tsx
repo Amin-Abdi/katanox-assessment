@@ -18,7 +18,7 @@ const columns = [
   },
   {
     title: "Actions",
-    render: (_: unknown, record: unknown) => <Button>Text</Button>,
+    render: (_: unknown, record: Property) => <Button propertyId={record.id}>See more</Button>,
   },
 ];
 
