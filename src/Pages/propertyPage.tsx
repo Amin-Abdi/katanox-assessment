@@ -28,6 +28,8 @@ export const PropertyPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const properties = useSelector(getPropertiesSelector);
+  const policies = useSelector(getPoliciesSelector)
+  console.log('Policies:', policies);
 
   const { propertyId } = useParams();
 
@@ -35,20 +37,25 @@ export const PropertyPage = () => {
     (p: { id: any }) => p["id"] === propertyId
   )[0];
   
-  const propertyAddress = [
-    { label: 'City', value: property.city },
-    { label: 'Country', value: property.country },
-    { label: 'Street', value: property.addressLine1 },
-  ];
+  const propertyAddress = property
+  ? [
+      { label: 'City', value: property.city },
+      { label: 'Country', value: property.country },
+      { label: 'Street', value: property.addressLine1 },
+    ]
+  : [];
 
-  const propertyDetails = [
-    { label: 'ID', value: property.id },
-    { label: 'Name', value: property.name },
-    { label: 'Star Rating', value: property.starRating },
-  ]
+  const propertyDetails = property
+  ? [
+      { label: 'ID', value: property.id },
+      { label: 'Name', value: property.name },
+      { label: 'Star Rating', value: property.starRating },
+    ]
+  : [];
 
   useEffect(() => {
     dispatch(getProperties());
+    dispatch(getPolicies());
   }, [dispatch]);
 
   return (
