@@ -9,3 +9,12 @@ export const getProperties = async () => {
       )
   };
 
+export const getPolicies = async () => {
+  return fetch('./data.json')
+      .then(() => {
+        const policies = data.data.map((policy) => policy.policies);
+        return policies})
+      .catch((error) => []
+    )
+}
+
