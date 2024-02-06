@@ -1,42 +1,23 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProperties, getPolicies } from "../Store/property/actions";
-import { getPropertiesSelector, getPoliciesSelector } from "../Store/property/selectors";
+import { getProperties } from "../Store/property/actions";
+import { getPropertiesSelector } from "../Store/property/selectors";
 import { Button } from "antd";
 import { useNavigate, useParams } from 'react-router-dom'
+import { Property } from "./property.types";
 
-interface Property {
-  addressLine1: string
-  addressLine2: any
-  checkInTime: string
-  checkOutTime: string
-  city: string
-  country: string
-  currency: string
-  description: string
-  domain: string
-  email: string
-  id: string
-  name: string
-  phoneNumber: string
-  postcode: string
-  propertyPolicies: number[]
-  starRating: number
-}
 
 export const PropertyPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const properties = useSelector(getPropertiesSelector);
-  const policies = useSelector(getPoliciesSelector)
-  console.log('Policies:', policies);
 
   const { propertyId } = useParams();
 
   const property: Property = properties.filter(
     (p: { id: any }) => p["id"] === propertyId
   )[0];
-  
+
   const propertyAddress = property
   ? [
       { label: 'City', value: property.city },
@@ -55,7 +36,6 @@ export const PropertyPage = () => {
 
   useEffect(() => {
     dispatch(getProperties());
-    dispatch(getPolicies());
   }, [dispatch]);
 
   return (
