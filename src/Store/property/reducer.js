@@ -6,6 +6,10 @@ import {
 
 const initState = {
   properties: [],
+  policies: {
+    noShowPolicies: [],
+    cancellationPolicies: []
+  }
 };
 
 const reducer = createReducer(initState, (builder) => {
@@ -14,7 +18,7 @@ const reducer = createReducer(initState, (builder) => {
       state.properties = action.payload;
     })
     .addCase(updatePoliciesResponse, (state, action) => {
-      state.properties = action.payload;
+      state.policies = action.payload;
     });
 });
 
