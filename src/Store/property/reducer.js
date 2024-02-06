@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-  getPropertiesResponse,
+  getPropertiesResponse,updatePoliciesResponse
 } from './actions';
 
 
@@ -13,6 +13,9 @@ const reducer = createReducer(initState, (builder) => {
     .addCase(getPropertiesResponse, (state, action) => {
       state.properties = action.payload;
     })
+    .addCase(updatePoliciesResponse, (state, action) => {
+      state.properties = action.payload;
+    });
 });
 
 export default reducer;
