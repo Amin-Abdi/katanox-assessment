@@ -30,3 +30,10 @@ export interface PropertyPolicy {
     noShowPolicies: Policy[];
     cancellationPolicies: Policy[];
 }
+
+export interface PolicyForm {
+    id: string;
+    name: string;
+    description: string;
+    amount: number;
+}

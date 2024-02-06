@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
-import { Form, Input, Button } from "antd";
+import { Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getPolicies } from "../Store/property/actions";
+import { getPolicies, updatePolicies } from "../Store/property/actions";
 import { getPoliciesSelector } from "../Store/property/selectors";
-import { useParams } from 'react-router-dom'
-import { PropertyPolicy } from "./property.types";
+import { useNavigate, useParams } from 'react-router-dom'
+import { PropertyPolicy, PolicyForm } from "./property.types";
 
-interface PolicyForm {
-    id: string;
-    name: string;
-    description: string;
-    amount: number;
-}
 
 const filterPoliciesByPropertyId = (
     data: (PropertyPolicy | undefined)[],  // Allow for undefined properties
@@ -37,18 +31,16 @@ const filterPoliciesByPropertyId = (
         return filteredPolicies;
       }
     }, { noShowPolicies: [], cancellationPolicies: [] });
-  };
+};
 
 export const PoliciesPage = () => {
     const dispatch = useDispatch();
     const policies = useSelector(getPoliciesSelector);
     const [isEditing, setIsEditing] = useState(false);
-    // const [form] = Form.useForm();
-    const { propertyId } = useParams();
+    const navigate = useNavigate();
+    const { propertyId } = useParams();    
 
     const [editedPolicies, setEditedPolicies] = useState<PropertyPolicy | null>(null);
-    // const filtered = filterPoliciesByPropertyId(policies, propertyId as string);
-    // console.log(filtered);
     
     useEffect(() => {
         dispatch(getPolicies());
@@ -56,7 +48,7 @@ export const PoliciesPage = () => {
 
     useEffect(() => {
         const filteredPolicies = filterPoliciesByPropertyId(policies, propertyId as string);
-        console.log(filteredPolicies)
+        // console.log(filteredPolicies)
         setEditedPolicies(filteredPolicies);
     }, [policies, propertyId]); 
 
@@ -86,11 +78,9 @@ export const PoliciesPage = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // Logic to save the edited policies
         console.log("Submitted values:", editedPolicies);
         // Dispatch action to update policies
-        // dispatch(updatePolicies(editedPolicies));
-        // After saving, exit edit mode
+        dispatch(updatePolicies(editedPolicies));
         setIsEditing(false);
     };
 
@@ -99,8 +89,9 @@ export const PoliciesPage = () => {
         <div style={centerStyle}>
         <div>
             <h1>Policies</h1>
+            <Button onClick={()=>{navigate(`/property/${propertyId}`)}}>See property policies</Button>
             <form onSubmit={handleSubmit}>
-                <h3>No Show Policies</h3>
+                <h2>No Show Policies</h2>
                 {editedPolicies?.noShowPolicies.map((policy) => (
                     <div key={policy.id}>
                         {isEditing ? (
@@ -131,32 +122,36 @@ export const PoliciesPage = () => {
                             
                     </div>
                 ))}
-                {/* <h3>Cancellation Policies</h3>
+                <h2>Cancellation Policies</h2>
                 {editedPolicies?.cancellationPolicies.map((policy) => (
                     <div key={policy.id}>   
-                        <div>
-                            <input
-                                type="text"
-                                value={policy.name}
-                                onChange={(event) => handleChange(event, 'name', policy.id)}
-                            />
-                        </div>
-                        <div>
-                        <input
-                            type="text"
-                            value={policy.description}
-                            onChange={(event) => handleChange(event, 'description', policy.id)}
-                        />
-                        </div>
-                        <div>
-                        <input
-                            type="number"
-                            value={policy.amount}
-                            onChange={(event) => handleChange(event, 'amount', policy.id)}
-                        />
-                        </div>   
+                        {isEditing ? (
+                            <div style={rowStyle}>
+                                <input
+                                    type="text"
+                                    value={policy.name}
+                                    onChange={(event) => handleChange(event, 'name', policy.id)}
+                                />
+                                <input
+                                    type="text"
+                                    value={policy.description}
+                                    onChange={(event) => handleChange(event, 'description', policy.id)}
+                                />
+                                <input
+                                    type="number"
+                                    value={policy.amount}
+                                    onChange={(event) => handleChange(event, 'amount', policy.id)}
+                                />   
+                            </div>
+                        ) : (
+                            <div key={policy.id}>
+                                <p>Name: {policy.name}</p>
+                                <p>Description: {policy.description}</p>
+                                <p>Amount: {policy.amount}</p>
+                            </div>
+                        )}
                     </div>
-                ))} */}
+                ))}
                 {isEditing && <button type="submit">Save</button>}
             </form>
         </div>
