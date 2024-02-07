@@ -4,7 +4,7 @@ import { Button } from "./common/button";
 export const PropertiesTable: React.FC<Properties> = ({
   properties,
 }: Properties) => {
-  return <Table dataSource={properties} columns={columns} />;
+  return <Table dataSource={properties} columns={columns} rowKey="id"/>;
 };
 
 const columns = [
