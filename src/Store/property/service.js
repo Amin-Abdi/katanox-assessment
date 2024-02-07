@@ -12,9 +12,14 @@ export const getProperties = async () => {
 export const getPolicies = async () => {
   return fetch('./data.json')
       .then(() => {
-        const policies = data.data.map((policy) => policy.policies);
-        // console.log('pol', policies);
-        return policies})
+        const policiesByProperty = {};
+        data.data.forEach(propertyData => {
+          // Extract property ID and policies
+          const { property, policies } = propertyData;
+          // Store policies by property ID
+          policiesByProperty[property.id] = policies;
+        });
+        return policiesByProperty})
       .catch((error) => []
     )
 }
@@ -22,9 +27,10 @@ export const getPolicies = async () => {
 export const updatePolicies = async (updatedPolicies) => {
   
   const newData = JSON.parse(JSON.stringify(data.data));
-  const propertyIndex = newData.findIndex((property) => property.property.id === updatedPolicies.noShowPolicies[0].propertyId);
+  const propertyIndex = newData.findIndex((property) => property.property.id === updatedPolicies.propertyId);
 
   if (propertyIndex !== -1) {
+    //Update the policies
     newData[propertyIndex].policies.noShowPolicies = updatedPolicies.noShowPolicies;
     newData[propertyIndex].policies.cancellationPolicies = updatedPolicies.cancellationPolicies;
   }

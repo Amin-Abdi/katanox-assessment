@@ -57,7 +57,6 @@
         "noShowPolicies":[
           {
             "id":"LYJJN1Y5",
-            "propertyId":"1YK15JGO",
             "name":"No-show",
             "description":"In case of a no-show, 100% of your stay will be charged.",
             "amount":100,
@@ -65,7 +64,6 @@
           },
           {
             "id":"VY3NEXYP",
-            "propertyId":"1YK15JGO",
             "name":"Test no-show",
             "description":"test",
             "amount":25,
@@ -73,7 +71,6 @@
           },
           {
             "id":"LYJKO7G5",
-            "propertyId":"1YK15JGO",
             "name":"72 hours",
             "description":"Non-Refundable",
             "amount":100,
@@ -83,7 +80,6 @@
         "cancellationPolicies":[
           {
             "id":"NGOPXP8D",
-            "propertyId":"1YK15JGO",
             "name":"Flexible",
             "description":"Free cancellation until 36 hours before arrival.",
             "amount":100,
@@ -94,7 +90,6 @@
           },
           {
             "id":"NG9O4V84",
-            "propertyId":"1YK15JGO",
             "name":"Flexible",
             "description":"Free cancellation until check-in",
             "amount":100,
@@ -105,7 +100,6 @@
           },
           {
             "id":"MGPZ038W",
-            "propertyId":"1YK15JGO",
             "name":"Non Refundable",
             "description":"No free cancellation",
             "amount":100,
@@ -116,7 +110,6 @@
           },
           {
             "id":"ZY6QJ1YD",
-            "propertyId":"1YK15JGO",
             "name":"Strict",
             "description":"No free cancellation.",
             "amount":100,
@@ -127,7 +120,6 @@
           },
           {
             "id":"1YK6Z4YO",
-            "propertyId":"1YK15JGO",
             "name":"50% cancellation",
             "description":"14 days prior to arrival, 50% of booking value will be charged for cancellations",
             "amount":50,
@@ -138,7 +130,6 @@
           },
           {
             "id":"ZY63EMYD",
-            "propertyId":"1YK15JGO",
             "name":"Multiple cp",
             "description":"Non Refundable",
             "amount":100,
@@ -149,7 +140,6 @@
           },
           {
             "id":"LYJKO7G5",
-            "propertyId":"1YK15JGO",
             "name":"72 hours",
             "description":"Non-Refundable",
             "amount":100,
@@ -160,7 +150,6 @@
           },
           {
             "id":"782KX5Y9",
-            "propertyId":"1YK15JGO",
             "name":"Test clx",
             "description":"Test",
             "amount":25,
@@ -205,7 +194,6 @@
         "noShowPolicies":[
           {
             "id":"OYDJDWYX",
-            "propertyId":"VY32018P",
             "name":"Non Refundable",
             "description":"No free no-show",
             "amount":100,
@@ -215,7 +203,6 @@
         "cancellationPolicies":[
           {
             "id":"1YK9N4YO",
-            "propertyId":"VY32018P",
             "name":"Flexible",
             "description":"Free cancellation until 36 hours before arrival.",
             "amount":100,
@@ -226,7 +213,6 @@
           },
           {
             "id":"KGQJ0MY4",
-            "propertyId":"VY32018P",
             "name":"Flexible",
             "description":"Free cancellation until check-in",
             "amount":100,
@@ -237,7 +223,6 @@
           },
           {
             "id":"ZYRWO38Q",
-            "propertyId":"VY32018P",
             "name":"Non Refundable",
             "description":"No free cancellation",
             "amount":100,
@@ -248,7 +233,6 @@
           },
           {
             "id":"KG4E3OYX",
-            "propertyId":"VY32018P",
             "name":"Strict",
             "description":"No free cancellation.",
             "amount":100,
