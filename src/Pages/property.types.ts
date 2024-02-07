@@ -27,6 +27,7 @@ export interface Policy {
 };
 
 export interface PropertyPolicy {
+    propertyId: string;
     noShowPolicies: Policy[];
     cancellationPolicies: Policy[];
 }

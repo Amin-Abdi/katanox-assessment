@@ -6,40 +6,13 @@ import { getPoliciesSelector } from "../Store/property/selectors";
 import { useNavigate, useParams } from 'react-router-dom'
 import { PropertyPolicy, PolicyForm } from "./property.types";
 
-
-const filterPoliciesByPropertyId = (
-    data: (PropertyPolicy | undefined)[],  // Allow for undefined properties
-    targetPropertyId: string
-  ): PropertyPolicy => {
-    return data.reduce<PropertyPolicy>((filteredPolicies, property) => {
-      if (property && property.noShowPolicies && property.cancellationPolicies) {
-        const noShowPolicies = property.noShowPolicies.filter(
-          (policy) => policy.propertyId === targetPropertyId
-        );
-        const cancellationPolicies = property.cancellationPolicies.filter(
-          (policy) => policy.propertyId === targetPropertyId
-        );
-  
-        return {
-          noShowPolicies: [...filteredPolicies.noShowPolicies, ...noShowPolicies],
-          cancellationPolicies: [
-            ...filteredPolicies.cancellationPolicies,
-            ...cancellationPolicies,
-          ],
-        };
-      } else {
-        return filteredPolicies;
-      }
-    }, { noShowPolicies: [], cancellationPolicies: [] });
-};
-
 export const PoliciesPage = () => {
     const dispatch = useDispatch();
     const policies = useSelector(getPoliciesSelector);
     const [isEditing, setIsEditing] = useState(false);
     const navigate = useNavigate();
-    const { propertyId } = useParams();    
-
+    const { propertyId } = useParams();
+    const propertyPolicies = propertyId ? policies?.[propertyId] : null;  
     const [editedPolicies, setEditedPolicies] = useState<PropertyPolicy | null>(null);
     
     useEffect(() => {
@@ -47,10 +20,10 @@ export const PoliciesPage = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        const filteredPolicies = filterPoliciesByPropertyId(policies, propertyId as string);
-        // console.log(filteredPolicies)
-        setEditedPolicies(filteredPolicies);
-    }, [policies, propertyId]); 
+        if (propertyPolicies) {
+            setEditedPolicies(propertyPolicies);
+        }
+    }, [propertyPolicies]);
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
@@ -63,12 +36,21 @@ export const PoliciesPage = () => {
                 updatedPolicies.noShowPolicies = updatedPolicies.noShowPolicies.map(policy =>
                     policy.id === policyId ? { ...policy, name: event.target.value } : policy
                 );
+                updatedPolicies.cancellationPolicies = updatedPolicies.cancellationPolicies.map(policy =>
+                    policy.id === policyId ? { ...policy, name: event.target.value } : policy
+                );
             } else if (type === 'description') {
                 updatedPolicies.noShowPolicies = updatedPolicies.noShowPolicies.map(policy =>
                     policy.id === policyId ? { ...policy, description: event.target.value } : policy
                 );
+                updatedPolicies.cancellationPolicies = updatedPolicies.cancellationPolicies.map(policy =>
+                    policy.id === policyId ? { ...policy, description: event.target.value } : policy
+                );
             } else if (type === 'amount') {
                 updatedPolicies.noShowPolicies = updatedPolicies.noShowPolicies.map(policy =>
+                    policy.id === policyId ? { ...policy, amount: Number(event.target.value) } : policy
+                );
+                updatedPolicies.cancellationPolicies = updatedPolicies.cancellationPolicies.map(policy =>
                     policy.id === policyId ? { ...policy, amount: Number(event.target.value) } : policy
                 );
             }
@@ -80,7 +62,7 @@ export const PoliciesPage = () => {
         event.preventDefault();
         console.log("Submitted values:", editedPolicies);
         // Dispatch action to update policies
-        dispatch(updatePolicies(editedPolicies));
+        dispatch(updatePolicies({...editedPolicies, propertyId: propertyId}));
         setIsEditing(false);
     };
 
@@ -98,16 +80,19 @@ export const PoliciesPage = () => {
                                 <div style={rowStyle}>
                                     <input
                                         type="text"
+                                        id={`name_${policy.id}`}
                                         value={policy.name}
                                         onChange={(event) => handleChange(event, 'name', policy.id)}
                                     />
                                     <input
                                         type="text"
+                                        id={`description_${policy.id}`}
                                         value={policy.description}
                                         onChange={(event) => handleChange(event, 'description', policy.id)}
                                     />
                                     <input
                                         type="number"
+                                        id={`amount_${policy.id}`}
                                         value={policy.amount}
                                         onChange={(event) => handleChange(event, 'amount', policy.id)}
                                     />
@@ -129,16 +114,19 @@ export const PoliciesPage = () => {
                             <div style={rowStyle}>
                                 <input
                                     type="text"
+                                    id={`name_${policy.id}`}
                                     value={policy.name}
                                     onChange={(event) => handleChange(event, 'name', policy.id)}
                                 />
                                 <input
                                     type="text"
+                                    id={`description_${policy.id}`}
                                     value={policy.description}
                                     onChange={(event) => handleChange(event, 'description', policy.id)}
                                 />
                                 <input
                                     type="number"
+                                    id={`amount_${policy.id}`}
                                     value={policy.amount}
                                     onChange={(event) => handleChange(event, 'amount', policy.id)}
                                 />   
