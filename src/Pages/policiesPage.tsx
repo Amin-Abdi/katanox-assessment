@@ -5,6 +5,8 @@ import { getPolicies, updatePolicies } from "../Store/property/actions";
 import { getPoliciesSelector } from "../Store/property/selectors";
 import { useNavigate, useParams } from 'react-router-dom'
 import { PropertyPolicy, PolicyForm } from "./property.types";
+import { PolicyDisplay } from "../Components/Policies/PolicyDisplay";
+import './Policies.css';
 
 export const PoliciesPage = () => {
     const dispatch = useDispatch();
@@ -68,93 +70,92 @@ export const PoliciesPage = () => {
 
 
     return (
-        <div style={centerStyle}>
-        <div>
-            <h1>Policies</h1>
-            <Button onClick={()=>{navigate(`/property/${propertyId}`)}}>See property policies</Button>
-            <form onSubmit={handleSubmit}>
-                <h2>No Show Policies</h2>
-                {editedPolicies?.noShowPolicies.map((policy) => (
-                    <div key={policy.id}>
-                        {isEditing ? (
+    <div style={{ width: "80%", margin: "auto" }}>
+        <div className="policy-page">
+            <div className="navigation">
+                <h1 style={{marginTop: '1rem'}}>Policies</h1>
+                <Button onClick={()=>{navigate(`/property/${propertyId}`)}}>Back to property</Button>
+            </div>
+            <form onSubmit={handleSubmit} className="form">
+                <div className="policies">
+                    <h2>No Show Policies</h2>
+                    {editedPolicies?.noShowPolicies.map((policy) => (
+                        <div key={policy.id}>
+                            {isEditing ? (
+                                    <div style={{marginBottom: "2rem"}}>
+                                        <div className="edit-policy">
+                                            <label htmlFor={`noshow_name_${policy.id}`}>Name:</label>
+                                            <input
+                                                type="text"
+                                                id={`noshow_name_${policy.id}`}
+                                                value={policy.name}
+                                                onChange={(event) => handleChange(event, 'name', policy.id)}
+                                            />
+                                        </div>
+                                        <div className="edit-policy">
+                                            <label htmlFor={`noshow_description_${policy.id}`}>Description:</label>
+                                            <input
+                                                type="text"
+                                                id={`noshow_description_${policy.id}`}
+                                                value={policy.description}
+                                                onChange={(event) => handleChange(event, 'description', policy.id)}
+                                            />
+                                        </div>
+                                        <div className="edit-policy">
+                                            <label htmlFor={`noshow_amount_${policy.id}`}>Amount:</label>
+                                            <input
+                                                type="number"
+                                                id={`noshow_amount_${policy.id}`}
+                                                value={policy.amount}
+                                                onChange={(event) => handleChange(event, 'amount', policy.id)}
+                                            />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <PolicyDisplay policy={policy}/>
+                                )}    
+                        </div>
+                    ))}
+                </div>
+                <div className="policies">
+                    <h2>Cancellation Policies</h2>
+                    {editedPolicies?.cancellationPolicies.map((policy) => (
+                        <div key={policy.id}>   
+                            {isEditing ? (
                                 <div style={rowStyle}>
                                     <input
                                         type="text"
-                                        id={`name_${policy.id}`}
+                                        id={`cancellation_name_${policy.id}`}
                                         value={policy.name}
                                         onChange={(event) => handleChange(event, 'name', policy.id)}
                                     />
                                     <input
                                         type="text"
-                                        id={`description_${policy.id}`}
+                                        id={`cancellation_description_${policy.id}`}
                                         value={policy.description}
                                         onChange={(event) => handleChange(event, 'description', policy.id)}
                                     />
                                     <input
                                         type="number"
-                                        id={`amount_${policy.id}`}
+                                        id={`cancellation_amount_${policy.id}`}
                                         value={policy.amount}
                                         onChange={(event) => handleChange(event, 'amount', policy.id)}
-                                    />
+                                    />   
                                 </div>
                             ) : (
-                                <div key={policy.id}>
-                                    <p>Name: {policy.name}</p>
-                                    <p>Description: {policy.description}</p>
-                                    <p>Amount: {policy.amount}</p>
-                                </div>
+                                <PolicyDisplay policy={policy}/>
                             )}
-                            
-                    </div>
-                ))}
-                <h2>Cancellation Policies</h2>
-                {editedPolicies?.cancellationPolicies.map((policy) => (
-                    <div key={policy.id}>   
-                        {isEditing ? (
-                            <div style={rowStyle}>
-                                <input
-                                    type="text"
-                                    id={`name_${policy.id}`}
-                                    value={policy.name}
-                                    onChange={(event) => handleChange(event, 'name', policy.id)}
-                                />
-                                <input
-                                    type="text"
-                                    id={`description_${policy.id}`}
-                                    value={policy.description}
-                                    onChange={(event) => handleChange(event, 'description', policy.id)}
-                                />
-                                <input
-                                    type="number"
-                                    id={`amount_${policy.id}`}
-                                    value={policy.amount}
-                                    onChange={(event) => handleChange(event, 'amount', policy.id)}
-                                />   
-                            </div>
-                        ) : (
-                            <div key={policy.id}>
-                                <p>Name: {policy.name}</p>
-                                <p>Description: {policy.description}</p>
-                                <p>Amount: {policy.amount}</p>
-                            </div>
-                        )}
-                    </div>
-                ))}
-                {isEditing && <button type="submit">Save</button>}
+                        </div>
+                    ))}
+                </div>
+                {isEditing && <Button type="primary" htmlType="submit">Save</Button>}
             </form>
+            <Button onClick={handleEditToggle}>{isEditing ? 'Cancel' : 'Edit Policies'}</Button>
         </div>
-        <button onClick={handleEditToggle}>{isEditing ? 'Cancel' : 'Edit'}</button>
     </div>
 )
 };
 
-
-const centerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-};
 
 const rowStyle = {
     display: "flex",

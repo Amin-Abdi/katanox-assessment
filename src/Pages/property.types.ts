@@ -19,11 +19,13 @@ export interface Property {
 
 export interface Policy {
     id: string;
-    propertyId: string;
     name: string;
     description: string;
     amount: number;
     chargeType: string;
+    reference?: string;
+    days?: number;
+    hours?: number;
 };
 
 export interface PropertyPolicy {
