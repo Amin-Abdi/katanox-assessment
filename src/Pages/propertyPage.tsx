@@ -5,6 +5,7 @@ import { getPropertiesSelector } from "../Store/property/selectors";
 import { Button } from "antd";
 import { useNavigate, useParams } from 'react-router-dom'
 import { Property } from "./property.types";
+import '../styles/Property.css'
 
 
 export const PropertyPage = () => {
@@ -40,10 +41,17 @@ export const PropertyPage = () => {
 
   return (
     <div style={{ width: "80%", margin: "auto" }}>
-        <div style={rowStyle}>
-        <h3>Property</h3>
-        <Button onClick={()=>{navigate('/')}}>Back to properties</Button>
-        </div>
+      <div style={{...rowStyle, marginTop: '1rem'}}>
+        <h1>Property</h1>
+        <Button style={{marginTop: "1rem"}} onClick={()=>{navigate('/')}}>Back to properties</Button>
+      </div>
+      <div className="details-container">
+          {propertyDetails.map((detail) => (
+            <div key={detail.label} className="property-details">
+              <p style={{...bubbleStyle, fontSize: "large"}}>{detail.label}:<span style={{marginLeft: '0.5rem', fontWeight: 'bold'}}>{detail.value}</span></p>
+            </div>
+          ))}
+      </div>
       <div
         style={{
           display: "flex",
@@ -51,12 +59,7 @@ export const PropertyPage = () => {
           flexDirection: "column",
         }}
       >
-        {propertyDetails.map((detail) => (
-          <div style={rowStyle} key={detail.label}>
-            <span style={bubbleStyle}>{detail.label}</span>
-            <span style={bubbleStyle}>{detail.value}</span>
-          </div>
-        ))}
+       
         <b style={{margin: '11px 0px'}}>Adress</b>
         <div style={{ ...bubbleStyle, display: 'flex', flexDirection: "column" }}>
           {propertyAddress.map(address => (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Policy } from "../../Pages/property.types";
-import '../../Pages/Policies.css'
+import '../../styles/Policies.css'
 
 type Props = {
     policy: Policy

@@ -1,0 +1,31 @@
+.details-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.property-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .details-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .property-details {
+        justify-content: space-between;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+}

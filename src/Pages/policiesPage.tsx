@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { PropertyPolicy, PolicyForm } from "./property.types";
 import { PolicyDisplay } from "../Components/Policies/PolicyDisplay";
 import { EditPolicyForm } from "../Components/Policies/EditPolicyForm";
-import './Policies.css';
+import '../styles/Policies.css';
 
 export const PoliciesPage = () => {
     const dispatch = useDispatch();
