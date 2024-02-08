@@ -73,8 +73,8 @@ export const PoliciesPage = () => {
     return (
     <div style={{ width: "80%", margin: "auto" }}>
         <div className="policy-page">
-            <div className="navigation">
-                <h1 style={{marginTop: '1rem'}}>Policies</h1>
+            <div className="navigation" style={{marginTop: "2rem"}}>
+                <h1 style={{marginTop: '1rem', fontSize: "30px"}}>Policies</h1>
                 <Button onClick={()=>{navigate(`/property/${propertyId}`)}}>Back to property</Button>
             </div>
             <form onSubmit={handleSubmit} className="form">

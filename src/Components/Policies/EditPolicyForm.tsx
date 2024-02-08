@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Policy, PolicyForm } from "../../Pages/property.types";
 
 type Props = {
@@ -8,35 +8,42 @@ type Props = {
 }
 
 export const EditPolicyForm: React.FC<Props> = ({policy, policyName, handleChange}) => {
+    
+    const [uniqueIds] = useState({
+        name: `${policyName}_name_${Math.random().toString(36).substring(7)}`,
+        description: `${policyName}_description_${Math.random().toString(36).substring(7)}`,
+        amount: `${policyName}_amount_${Math.random().toString(36).substring(7)}`
+    });
+    
     return (
         <div style={{marginBottom: "1rem"}}>
             <div className="edit-policy">
-                 <label htmlFor={`${policyName}_name_${policy.id}`}>Name:</label>
+                 <label htmlFor={uniqueIds.name}>Name:</label>
                  <input
                     type="text"
-                    id={`noshow_name_${policy.id}`}
+                    id={uniqueIds.name}
                     value={policy.name}
                     onChange={(event) => handleChange(event, 'name', policy.id)}
                     />
             </div>
             <div className="edit-policy">
-                <label htmlFor={`${policyName}_description_${policy.id}`}>Description:</label>
+                <label htmlFor={uniqueIds.description}>Description:</label>
                 <input
                     type="text"
-                    id={`${policyName}_description_${policy.id}`}
+                    id={uniqueIds.description}
                     value={policy.description}
                     onChange={(event) => handleChange(event, 'description', policy.id)}
                 />
             </div>
             <div className="edit-policy">
-                <label htmlFor={`${policyName}_amount_${policy.id}`}>Amount:</label>
+                <label htmlFor={uniqueIds.amount}>Amount:</label>
                  <input
                     type="number"
-                    id={`${policyName}_amount_${policy.id}`}
+                    id={uniqueIds.amount}
                     value={policy.amount}
                     onChange={(event) => handleChange(event, 'amount', policy.id)}
                 />
             </div>
         </div>
     )
-}
+};
