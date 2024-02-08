@@ -14,7 +14,7 @@ export const PropertiesPage = () => {
 
   return (
     <div style={{ width: "80%", margin: "auto" }}>
-      <h3>Properties</h3>
+      <h1 style={{marginTop: '1rem', fontSize: "28px"}}>Properties</h1>
       <PropertiesTable properties={properties} />
     </div>
   );
