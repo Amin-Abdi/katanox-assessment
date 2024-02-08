@@ -6,6 +6,7 @@ import { getPoliciesSelector } from "../Store/property/selectors";
 import { useNavigate, useParams } from 'react-router-dom'
 import { PropertyPolicy, PolicyForm } from "./property.types";
 import { PolicyDisplay } from "../Components/Policies/PolicyDisplay";
+import { EditPolicyForm } from "../Components/Policies/EditPolicyForm";
 import './Policies.css';
 
 export const PoliciesPage = () => {
@@ -82,35 +83,7 @@ export const PoliciesPage = () => {
                     {editedPolicies?.noShowPolicies.map((policy) => (
                         <div key={policy.id}>
                             {isEditing ? (
-                                    <div style={{marginBottom: "2rem"}}>
-                                        <div className="edit-policy">
-                                            <label htmlFor={`noshow_name_${policy.id}`}>Name:</label>
-                                            <input
-                                                type="text"
-                                                id={`noshow_name_${policy.id}`}
-                                                value={policy.name}
-                                                onChange={(event) => handleChange(event, 'name', policy.id)}
-                                            />
-                                        </div>
-                                        <div className="edit-policy">
-                                            <label htmlFor={`noshow_description_${policy.id}`}>Description:</label>
-                                            <input
-                                                type="text"
-                                                id={`noshow_description_${policy.id}`}
-                                                value={policy.description}
-                                                onChange={(event) => handleChange(event, 'description', policy.id)}
-                                            />
-                                        </div>
-                                        <div className="edit-policy">
-                                            <label htmlFor={`noshow_amount_${policy.id}`}>Amount:</label>
-                                            <input
-                                                type="number"
-                                                id={`noshow_amount_${policy.id}`}
-                                                value={policy.amount}
-                                                onChange={(event) => handleChange(event, 'amount', policy.id)}
-                                            />
-                                        </div>
-                                    </div>
+                                    <EditPolicyForm policy={policy} handleChange={handleChange}/>
                                 ) : (
                                     <PolicyDisplay policy={policy}/>
                                 )}    
@@ -122,26 +95,7 @@ export const PoliciesPage = () => {
                     {editedPolicies?.cancellationPolicies.map((policy) => (
                         <div key={policy.id}>   
                             {isEditing ? (
-                                <div style={rowStyle}>
-                                    <input
-                                        type="text"
-                                        id={`cancellation_name_${policy.id}`}
-                                        value={policy.name}
-                                        onChange={(event) => handleChange(event, 'name', policy.id)}
-                                    />
-                                    <input
-                                        type="text"
-                                        id={`cancellation_description_${policy.id}`}
-                                        value={policy.description}
-                                        onChange={(event) => handleChange(event, 'description', policy.id)}
-                                    />
-                                    <input
-                                        type="number"
-                                        id={`cancellation_amount_${policy.id}`}
-                                        value={policy.amount}
-                                        onChange={(event) => handleChange(event, 'amount', policy.id)}
-                                    />   
-                                </div>
+                                <EditPolicyForm policy={policy} handleChange={handleChange}/>
                             ) : (
                                 <PolicyDisplay policy={policy}/>
                             )}
@@ -154,12 +108,4 @@ export const PoliciesPage = () => {
         </div>
     </div>
 )
-};
-
-
-const rowStyle = {
-    display: "flex",
-    justifyContent: "space-around",
-    margin: "13px 3px",
-    borderRadius: "9px",
 };
