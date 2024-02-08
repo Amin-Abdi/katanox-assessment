@@ -83,7 +83,7 @@ export const PoliciesPage = () => {
                     {editedPolicies?.noShowPolicies.map((policy) => (
                         <div key={policy.id}>
                             {isEditing ? (
-                                    <EditPolicyForm policy={policy} handleChange={handleChange}/>
+                                    <EditPolicyForm policy={policy} policyName='no_show' handleChange={handleChange}/>
                                 ) : (
                                     <PolicyDisplay policy={policy}/>
                                 )}    
@@ -95,7 +95,7 @@ export const PoliciesPage = () => {
                     {editedPolicies?.cancellationPolicies.map((policy) => (
                         <div key={policy.id}>   
                             {isEditing ? (
-                                <EditPolicyForm policy={policy} handleChange={handleChange}/>
+                                <EditPolicyForm policy={policy} policyName="cancellation" handleChange={handleChange}/>
                             ) : (
                                 <PolicyDisplay policy={policy}/>
                             )}
