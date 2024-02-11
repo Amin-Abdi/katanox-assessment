@@ -14,6 +14,3 @@ export const Button: React.FC<ButtonProps> = ({children, propertyId}) => {
         </button>
     )
 }
-
-
-export {};
