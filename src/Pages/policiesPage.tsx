@@ -15,7 +15,7 @@ export const PoliciesPage = () => {
     const [isEditing, setIsEditing] = useState(false);
     const navigate = useNavigate();
     const { propertyId } = useParams();
-    const propertyPolicies = propertyId ? policies?.[propertyId] : null;  
+    const propertyPolicies: PropertyPolicy = propertyId ? policies?.[propertyId] : null;  
     const [editedPolicies, setEditedPolicies] = useState<PropertyPolicy | null>(null);
     
     useEffect(() => {
@@ -29,7 +29,12 @@ export const PoliciesPage = () => {
     }, [propertyPolicies]);
 
     const handleEditToggle = () => {
-        setIsEditing(!isEditing);
+        setIsEditing(true);
+    };
+
+    const handleCancel = () => {
+        setIsEditing(false);
+        setEditedPolicies(propertyPolicies);
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>, type: keyof PolicyForm, policyId: string) => {
@@ -63,7 +68,6 @@ export const PoliciesPage = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log("Submitted values:", editedPolicies);
         // Dispatch action to update policies
         dispatch(updatePolicies({...editedPolicies, propertyId: propertyId}));
         setIsEditing(false);
@@ -102,9 +106,13 @@ export const PoliciesPage = () => {
                         </div>
                     ))}
                 </div>
-                {isEditing && <Button type="primary" htmlType="submit">Save</Button>}
+                {isEditing && <Button data-test="save-button" type="primary" htmlType="submit">Save</Button>}
             </form>
-            <Button onClick={handleEditToggle}>{isEditing ? 'Cancel' : 'Edit Policies'}</Button>
+            {!isEditing ?
+                <Button data-test="edit-button" onClick={handleEditToggle}>Edit Policies</Button>
+                :
+                <Button data-test="cancel-button" onClick={handleCancel}>Cancel</Button>
+            }
         </div>
     </div>
 )
