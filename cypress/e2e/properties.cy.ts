@@ -1,5 +1,5 @@
 describe('Properties Page', () => {
-    it('should visit', () => {
+    it('should have the correct properties information', () => {
         const propertyId = '1YK15JGO';
         cy.visit('/');
         cy.contains(/Properties/i).should('be.visible');
