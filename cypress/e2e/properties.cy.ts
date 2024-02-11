@@ -9,7 +9,6 @@ describe('Properties Page', () => {
 
         //Check appropriate values for properties table.
         cy.get('.ant-table-tbody').find('tr').eq(0).within(() => {
-            // Find the table cell (td) containing the "Name" column
             cy.get('td').eq(0).should('contain.text', '1YK15JGO');
             cy.get('td').eq(1).should('contain.text', 'Hotel Amsterdam');
           });

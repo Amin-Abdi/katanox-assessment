@@ -78,9 +78,9 @@ export const PropertyPage = () => {
         <div style={{display: 'flex', flexDirection: "column" }} className="bubbleStyle">
           {propertyAddress.map(address => (
             <div key={address.label} className="address-rows">
-            <span>{address.label}</span>
-            <span>{address.value}</span>
-          </div>
+              <span data-test={`address-${address.label.toLowerCase()}-label`}>{address.label}</span>
+              <span data-test={`address-${address.label.toLowerCase()}-value`}>{address.value}</span>
+            </div>
           ))}
         </div>
       </div>
