@@ -9,7 +9,7 @@ interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({children, propertyId}) => {
     const navigate = useNavigate();
     return (
-        <button className="button-arounder" data-testid="button" onClick={()=>{navigate(`/property/${propertyId}`)}}>
+        <button data-test={`navigate-button-${propertyId}`} className="button-arounder" data-testid="button" onClick={()=>{navigate(`/property/${propertyId}`)}}>
             {children}
         </button>
     )
