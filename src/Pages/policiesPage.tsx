@@ -32,6 +32,7 @@ export const PoliciesPage = () => {
         setIsEditing(true);
     };
 
+    //Reset the editied policies to the original data if editing is cancelled.
     const handleCancel = () => {
         setIsEditing(false);
         setEditedPolicies(propertyPolicies);
