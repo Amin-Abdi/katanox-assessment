@@ -1,5 +1,5 @@
 import { Table } from "antd";
-import { Button } from "./common/button";
+import { Button } from "./common/Button";
 
 export const PropertiesTable: React.FC<Properties> = ({
   properties,
