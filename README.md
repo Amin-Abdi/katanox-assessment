@@ -66,3 +66,18 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
+
+### `yarn run cypress open`
+
+Runs the end to end tests using Cypress.
+
+- when cypress window pops up, click E2E Testing (Everything is already configured).
+- Select "Start E2E Testing in chrome"
+- Run the tests by spec files.
+
+
+
+### Additional Notes
+There is quite a bit of legacy code in the Store folder and there are ways they can be improved. If I had more time , I would dive deep into them and convert them into typescript and follow the proper redux convensions.
+
+I would also add component tests to the application, I removed my jest tests for individual components as they were clashing with the end 2 end cypress tests and I was spending too much time in the config files.
